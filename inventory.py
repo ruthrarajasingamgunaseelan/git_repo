@@ -66,3 +66,7 @@ def process_orders(orders):
 
 def ship(order):
     print("Shipping order", order["id"], "to", order["address"])
+
+
+def main ():
+    print("Dummy edit has been added")
