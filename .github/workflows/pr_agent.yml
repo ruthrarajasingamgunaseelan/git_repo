@@ -1,0 +1,25 @@
+name: PR Agent (local model)
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review, synchronize]
+
+jobs:
+  pr_agent:
+    if: ${{ github.event.sender.type != 'Bot' }}
+    runs-on: self-hosted
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Run PR-Agent review
+        env:
+          CONFIG__GIT_PROVIDER: github
+          GITHUB__USER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CONFIG__MODEL: ollama/qwen3-coder:480b
+          CONFIG__FALLBACK_MODELS: '[]'
+          CONFIG__CUSTOM_MODEL_MAX_TOKENS: "262144"
+          OLLAMA__API_BASE: http://localhost:11434
+        run: |
+          "$HOME/pr-agent-env/bin/python" -m pr_agent.cli --pr_url "${{ github.event.pull_request.html_url }}" review
