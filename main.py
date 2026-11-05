@@ -4,4 +4,4 @@ a = 10
 b = 20
 
 c= util.calculate(a,b)
-print(c)
+print(f"Result of calculate({a}, {b}) = {c}")
