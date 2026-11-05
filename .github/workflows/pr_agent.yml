@@ -23,3 +23,4 @@ jobs:
           OLLAMA__API_BASE: http://localhost:11434
         run: |
           "$HOME/pr-agent-env/bin/python" -m pr_agent.cli --pr_url "${{ github.event.pull_request.html_url }}" review
+          "$HOME/pr-agent-env/bin/python" -m pr_agent.cli --pr_url "${{ github.event.pull_request.html_url }}" describe
